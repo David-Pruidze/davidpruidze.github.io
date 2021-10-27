@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    "use strict"
+// я и тут могу тернарным методом, но тогда я не понимаю как мне зациклить это.
+    let surname = (prompt('Введите свою фамилию'));
+    while(surname === '' || surname === " "){
+        surname = prompt('Введите свою фамилию');
+    }
+
+    let name = prompt('Введите своё имя');
+    while(name === '' || name === " " ){
+        name = prompt('Введите своё имя');
+    }
+
+    let patronymic = prompt("Введите свое отчество");
+    while(patronymic === '' || patronymic === " "){
+        patronymic = prompt("Введите свое отчество");
+    }
+
+    let age = parseInt(prompt("Введите свой возраст"));
+    while(age === '' || age === " " || isNaN(age)){
+        age = parseInt(prompt("Введите свой возраст"));
+    }
+// Тернарный метод
+    let a = "мужской";
+    let b ="женский";
+    let gender = confirm("Вы мужчина?")? a : b;
+
+    let pension;
+    let c = "нет";
+    let x = "да"
+    pension = (age>67)? x :
+        (age>56)? x : c;
+
+
+
+
+    alert("ваше ФИО:" + " " + name + " " + surname + " " + patronymic + "\n"+
+        "ваш возраст в годах:" + age + "\n" +
+        "ваш возраст в днях:" + age*365 +"\n" +
+        "через 5 лет вам будет:" + age*5  +"\n" +
+        "ваш пол:" + gender +"\n" +
+        "вы на пенсии:" +pension);
+
+
+
+</script>
+</body>
+</html>
