@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    'use strict'
+    let message = isChecked(prompt('Введите палиндромом'));
+
+    function isChecked(str){
+        const regExp = /[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,\-.\/:;<=>?@\[\]^_`{|}~\s]/g;
+        const text = str.replace(regExp, '').replace(/[ё]/g, 'е').replace(/[ъ]/g, 'ь').toLowerCase();
+        let a1 = 0, a2 = text.length - 1;
+        while (a1 < a2)
+            if (text.charAt(a1++) !== text.charAt(a2--)) return false;
+        return true;
+    }
+    console.log(message)
+</script>
+</body>
+</html>
