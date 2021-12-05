@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #forH1{
+            display: flex;
+            flex-direction: column;
+            width: 500px;
+            margin-bottom: 40px;
+        }
+        #forP{
+            display: flex;
+            flex-direction: column;
+            width: 500px;
+            margin-bottom: 40px;
+        }
+        .text{
+            display: flex;
+            flex-direction: column;
+            width: 500px;
+            margin-bottom: 40px;
+            margin-left: -40px;
+        }
+        input{
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+<h1>h1</h1>
+<div id="forH1">
+    <input type="text" name="text" placeholder="text">
+    <input type="text" name="prop" placeholder="property">
+    <input type="text" name="value" placeholder="value">
+    <input type="button" value="save" onclick="createH1()">
+</div>
+<div id="forP">
+    <p>Paragraph</p>
+    <input type="text" name="text" placeholder="text">
+    <input type="text" name="prop" placeholder="property">
+    <input type="text" name="value" placeholder="value">
+    <input type="button" value="save" onclick="createP()">
+</div>
+<button onclick="createLi()">create Li</button>
+<button onclick="createUl()">create Ul</button>
+
+
+<script>
+    'use strict'
+
+    function  createH1(){
+        const blockH1 = document.getElementById('forH1')
+        const h1Props = {};
+        for (let inp of blockH1.children){
+            h1Props[inp.name]=inp.value
+        }
+        const createEl = document.createElement('h1');
+        const body = document.getElementsByTagName('body');
+        body[0].appendChild(createEl)
+        createEl.style[h1Props.prop] = h1Props.value
+        createEl.innerText = h1Props.text
+
+    }
+    function  createP(){
+        const blockH1 = document.getElementById('forP')
+        const h1Props = {};
+        for (let inp of blockH1.children){
+            h1Props[inp.name]=inp.value
+        }
+        const createEl = document.createElement('p');
+        const body = document.getElementsByTagName('body');
+        body[0].appendChild(createEl)
+        createEl.style[h1Props.prop] = h1Props.value
+        createEl.innerText = h1Props.text
+    }
+
+    function createLi(){
+        const ul = document.createElement('ul');
+        const li = document.createElement('li');
+        li.classList.add('text');
+        const input = document.createElement('input');
+        input.setAttribute('name', 'text');
+        input.placeholder = 'text'
+        const input1 = document.createElement('input');
+        input1.setAttribute('name', 'prop');
+        input1.placeholder = 'property'
+        const input2 = document.createElement('input');
+        input2.setAttribute('name', 'value');
+        input2.placeholder = 'value'
+        li.appendChild(input);
+        li.appendChild(input1);
+        li.appendChild(input2);
+        ul.appendChild(li);
+      document.body.appendChild(ul)
+
+    }
+function createUl(){
+    const blockH1 = document.getElementsByTagName('input')
+    const h1Props = {};
+    for (let inp of blockH1){
+        h1Props[inp.name]=inp.value
+    }
+    const createEl = document.createElement('ul');
+    const createLi = document.createElement('li');
+    const body = document.getElementsByTagName('body');
+    createEl.appendChild(createLi)
+    body[0].appendChild(createEl)
+
+    createEl.style[h1Props.prop] = h1Props.value
+    createLi.innerText = h1Props.text
+
+}
+
+
+</script>
+</body>
+</html>
