@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>N.13 Домашнее задание DRINKS_HASH_FUNC</title>
+</head>
+
+<body>
+<label>
+<input type="button" value="Ввод информации о напитке" onclick="inputDrink()">
+    <input type="button" value="Получение  информации о напитке" onclick="getDrink()">
+    <input type="button" value="Удаление информации о напитке" onclick="deleteDrink()">
+    <input type="button" value="Перечень всех напитков" onclick="aboutAllDrink()">
+</label>
+<script>
+    'use strict'
+
+    function HashStorage (){
+        const hashStore = {};
+        this.addValue = (key,value) => {hashStore[key]=value; return this;};
+        this.getValue = (key) => {if (key in hashStore) return hashStore[key]; else return false;};
+        this.deleteValue = (key) => {if (key in hashStore) {delete hashStore[key]; return true;} else return false;};
+        this.getKeys = () => {return Object.keys(hashStore)};
+    }
+
+    const drinkStorage = new HashStorage();
+    drinkStorage.addValue('Морс', {alc:'нет', rcp:'клюква, сахар, апельсин.'});
+    drinkStorage.addValue('Пина Колада', {alc:'да', rcp:'50 мл светлого рома\n' +
+            '30 мл кокосового молока\n' +
+            '50 мл ананасового сока ' + "все это смешать и хорошенько перемешать"});
+    drinkStorage.addValue('Маргарита', {alc:'да', rcp:'Сделай на бокале для маргариты соленую окаемку\n' +
+            'Налей в шейкер лаймовый сок 30 мл, сахарный сироп 10 мл, ликер трипл сек 25 мл и серебряную текилу 50 мл\n' +
+            'Наполни шейкер кубиками льда и взбей\n' +
+            'Перелей через стрейнер в охлажденный бокал для маргариты\n' +
+            'Укрась кружком лайма'});
+
+    function inputDrink (){
+        let alcohol;
+        do var key = prompt('Введите название напитка на русском языке');
+        while (nonCyrillicText(key)===false||Boolean(key)===Boolean);
+        if(confirm('Если напиток алкогольный нажмите "Ок", безалкогольный "Отмена"')===true) alcohol = "Да";
+        else alcohol = "Нет";
+        do var recipe = prompt('Введите рецепт напитка на русском языке');
+        while (nonCyrillicText(key)===false||Boolean(key)===false);
+        return drinkStorage.addValue(key,{alc:alcohol,rcp:recipe});
+    }
+
+    function getDrink (){
+        let drinkHash={}, alcohol='';
+        do var key = prompt('Введите название напитка на русском языке');
+        while (nonCyrillicText(key)===false||Boolean(key)===false);
+        drinkHash=drinkStorage.getValue(key);
+        if(drinkStorage.getValue(key)===false)  alert('Такого напитка нет в хранилище');
+        else alert('Напиток - ' + key + '\nАлкогольный: ' + drinkHash.alc +  '\nРецепт приготовления: ' + drinkHash.rcp);
+    }
+
+    function deleteDrink (){
+        do var key = prompt('Введите название напитка на русском языке');
+        while (nonCyrillicText(key)===false||Boolean(key)===false);
+        if(drinkStorage.deleteValue(key)===true) alert('Напиток успешно удален');
+        else alert('Такого напитка нет в хранилище');
+    }
+
+    function aboutAllDrink (){
+        let arr=drinkStorage.getKeys();
+        if(arr.length==0) alert('В хранилище нет ни одного напитка');
+        else alert(arr);
+    }
+
+    function nonCyrillicText(b){
+        if (b===null) return false;
+        else{
+            let result=true, resultAll;
+            for (let i=0;i<b.length;i++) resultAll=(result&&(b.charCodeAt(i)<1040||b.charCodeAt(i)>1103));
+            return !resultAll;
+        }
+    }
+</script>
+</body>
+</html>

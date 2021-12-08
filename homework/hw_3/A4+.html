@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+let question = prompt("Введите палиндром ").replace(/[^\w]/gi, '').toLowerCase()
+    function  palindromRec (letters) {
+   let char = letters.split(''),
+       fLetter = char.shift(),
+       lLetter = char.pop();
+        if (fLetter !== lLetter){
+            return false
+        }
+            if (char.length<2){
+    return true;
+}
+    return palindromRec(char.join(''))
+}
+
+console.log(palindromRec(question))
+</script>
+</body>
+</html>
