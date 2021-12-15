@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>VOWELS</title>
+</head>
+<body>
+<script>
+function sumVowels(){
+    let str = prompt("Введите текст", '').toLowerCase();
+    let arr = str.split('');
+    let sum = 0;
+    for (let i = 0; i < arr.length; i++){
+        item = arr[i];
+        if (item === 'а' ||
+            item === 'о' ||
+            item === 'и' ||
+            item === 'е' ||
+            item === 'ё' ||
+            item === 'э' ||
+            item === 'ы' ||
+            item === 'у' ||
+            item === 'ю' ||
+            item === 'я') {
+            sum++;
+        };
+    } return sum
+}
+alert(' Количество гласных букв ---- ' + sumVowels())
+</script>
+</body>
+</html>
