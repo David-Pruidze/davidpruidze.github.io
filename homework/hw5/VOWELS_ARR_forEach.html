@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    'use strict'
+    let str = prompt('Введите любую строку', ' Привет, как твои дела?')
+    function sumVowels(str){
+        let vowels = ['а','о','и','е','ё','э','ы','у','ю','я'];
+        let arr = str.toLowerCase().split('');
+        let sum = 0;
+
+        arr.forEach(function (item){
+            if(vowels.indexOf(item) !== -1)
+                sum++
+        })
+        return sum
+    }
+    console.log(`В вашей строк - ${sumVowels(str)} гласных`)
+
+</script>
+</body>
+</html>

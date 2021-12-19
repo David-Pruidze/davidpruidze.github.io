@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+  'use strict'
+  const ask = reverseString(prompt('Введите текст'));
+
+  function reverseString (str){
+      let array = str.split('');
+      const revArray = array.reverse();
+      const revString = revArray.join('');
+      return revString
+  }
+  alert (ask)
+</script>
+</body>
+</html>
