@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        form {
+            width: 65%;
+            border: 2px solid black;
+            margin-bottom: 40px;
+            padding: 20px;
+            background-color: #b4a3d3;
+        }
+
+        label {
+            display: block;
+            position: relative;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        label label {
+            position: relative;
+            display: inline-block;
+            margin-right: 30px;
+            padding-left: 25px;
+            margin-bottom: 0;
+            font-weight: 400;
+            font-style: italic;
+        }
+
+        label label:first-of-type {
+            margin-left: 15%;
+        }
+
+        input {
+            position: absolute;
+            box-sizing: border-box;
+            left: 30%;
+        }
+
+        input[type=text] {
+            left: 30%;
+            width: 70%;
+        }
+
+        input[type=email] {
+            width: 50%;
+        }
+
+        input[type=radio] {
+            position: absolute;
+            left: 0;
+            display: inline-block;
+            margin-right: 20px;
+            margin-left: 0;
+        }
+
+        input[type=checkbox] {
+            margin-left: 0;
+        }
+
+        input[type=submit] {
+            position: static;
+            background-color: lightyellow;
+        }
+
+        select {
+            width: 50%;
+            position: absolute;
+            box-sizing: border-box;
+            left: 30%;
+        }
+
+        textarea {
+            display: block;
+            margin-top: 10px;
+            width: 100%;
+            min-height: 70px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+<form id="form1" action="http://fe.it-academy.by/TestForm.php" method= "POST" name="form1"></form>
+
+<form id="form2" action="http://fe.it-academy.by/TestForm.php" method= "POST" name="form2"></form>
+<script>
+    "use strict";
+
+    const formDef1=
+        [
+            {label:'Название сайта:',kind:'longtext',name:'sitename'},
+            {label:'URL сайта:',kind:'longtext',name:'siteurl'},
+            {label:'Посетителей в сутки:',kind:'number',name:'visitors'},
+            {label:'E-mail для связи:',kind:'shorttext',name:'email'},
+            {label:'Рубрика каталога:',kind:'combo',name:'division',
+                variants:[{text:'здоровье',value:1},{text:'домашний уют',value:2},{text:'бытовая техника',value:3}]},
+            {label:'Размещение:',kind:'radio',name:'payment',
+                variants:[{text:'бесплатное',value:1},{text:'платное',value:2},{text:'VIP',value:3}]},
+            {label:'Разрешить отзывы:',kind:'check',name:'votes'},
+            {label:'Описание сайта:',kind:'memo',name:'description'},
+            {label:'Опубликовать:',kind:'submit'},
+        ];
+
+    const formDef2=
+        [
+            {label:'Фамилия:',kind:'longtext',name:'lastname'},
+            {label:'Имя:',kind:'longtext',name:'firstname'},
+            {label:'Отчество:',kind:'longtext',name:'secondname'},
+            {label:'Возраст:',kind:'number',name:'age'},
+            {label:'Зарегистрироваться:',kind:'submit'},
+        ];
+
+    const form1 = document.forms.form1;
+
+    const form2 = document.forms.form2;
+
+
+    function createForm(form,array) {
+        const arr = array;
+        const frm = form;
+
+        function createInput(type) {
+            const input = document.createElement('input');
+            const label = document.createElement('label');
+            const labelText = document.createTextNode(elem.label);
+
+            input.type = type;
+
+            if (input.type === 'submit') {
+                delete input.name;
+                input.value = elem.label;
+                frm.appendChild(input);
+            } else {
+                input.name = elem.name;
+                label.appendChild(labelText);
+                frm.appendChild(label).appendChild(input);
+            };
+        }
+
+        for(let i=0; i<arr.length; i++) {
+           var elem = arr[i];
+
+            if(elem.kind === 'longtext'){
+                createInput('text');
+
+            } else if (elem.kind === 'number') {
+                createInput('number');
+
+            } else if (elem.kind === 'shorttext') {
+                createInput('email');
+
+            } else if (elem.kind === 'combo') {
+                const options = elem.variants;
+
+                const label = document.createElement('label');
+                const labelText = document.createTextNode(elem.label);
+
+                const select = document.createElement('select');
+                select.name = elem.name;
+
+                label.appendChild(labelText);
+                frm.appendChild(label).appendChild(select);
+
+                options.forEach(function(item, i, arr) {
+                    const option = document.createElement('option');
+                    const optionText = document.createTextNode(item.text);
+                    option.value = item.value;
+
+                    select.appendChild(option).appendChild(optionText);
+                });
+
+            } else if (elem.kind === 'radio') {
+                const radioItems = elem.variants;
+
+                const label = document.createElement('label');
+                const labelText = document.createTextNode(elem.label);
+
+                frm.appendChild(label).appendChild(labelText);
+
+                radioItems.forEach(function(item, i, arr) {
+                    const input = document.createElement('input');
+
+                    const labell = document.createElement('label');
+                    const labellText = document.createTextNode(item.text);
+
+                    input.type = 'radio';
+                    input.name = elem.name;
+                    input.value = item.value;
+
+                    labell.appendChild(labellText);
+                    label.appendChild(labell).appendChild(input);
+                });
+
+            } else if (elem.kind === 'check') {
+                createInput('checkbox');
+
+            } else if (elem.kind === 'memo') {
+                const label = document.createElement('label');
+                const labelText = document.createTextNode(elem.label);
+
+                const textarea = document.createElement('textarea');
+                textarea.name = elem.name;
+
+                label.appendChild(labelText);
+                frm.appendChild(label).appendChild(textarea);
+
+            } else if (elem.kind === 'submit') {
+                createInput('submit');
+            }
+        }
+    }
+    createForm(form1, formDef1);
+    createForm(form2, formDef2);
+</script>
+</body>
+</html>
