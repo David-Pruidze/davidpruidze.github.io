@@ -1,0 +1,76 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<style>
+    #ball {
+        position: fixed;
+        left: 0;
+        top: 0;
+    }
+
+    #toy {
+        position: fixed;
+        left: 100px;
+        top: 0;
+    }
+
+    #city {
+        position: fixed;
+        left: 200px;
+        top: 0;
+    }
+    #ball,#city,#toy{
+        width: 100px;
+        aspect-ratio: 1;
+    }
+</style>
+
+<body>
+<div id=PIC>
+    <img id=ball src="images/ball.jpeg">
+    <img id=toy src="images/toy.jpeg">
+    <img id=city src="images/city.jpeg">
+</div>
+<script>
+    "use strict"
+    const elems = document.getElementsByTagName('img');
+
+    for (let i = elems.length - 1; i>0; i--){
+        const elem = elems[i];
+        elem.style.position = 'absolute';
+        elem.style.left = elem.offsetLeft;
+        elem.style.top = elem.offsetTop;
+    }
+
+    document.addEventListener('mousedown', shiftFunc);
+
+    function shiftFunc(EO){
+        EO = EO || window.event;
+        const elem = EO.target
+
+        let x = EO.pageX - elem.getBoundingClientRect().left;
+        let y = EO.pageY - elem.getBoundingClientRect().top;
+
+        document.body.appendChild(elem);
+
+        document.onmousemove = function (EO){
+            elem.style.left = EO.pageX - x + 'px';
+            elem.style.top = EO.pageY - y + 'px';
+        }
+
+        elem.onmouseup = () => document.onmousemove = null;
+
+        elem.ondragstart = function (){
+            return false;
+        }
+    }
+
+
+
+
+</script>
+
+</body>
+</html>
